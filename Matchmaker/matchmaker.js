@@ -25,7 +25,19 @@ console.log("Config: " + JSON.stringify(config, null, '\t'));
 
 const express = require('express');
 var cors = require('cors');
+
+const { DynamoDBClient } = require("@aws-sdk/client-dynamodb");
+
+var DynamoDBStoreOptions = {
+    client: new DynamoDBClient(),
+	reapInterval: 6000
+        
+};
+
 const app = express();
+var session = require("express-session");
+var DynamoDBStore = require("connect-dynamodb")({session: session});
+app.use(session({ store: new DynamoDBStore(DynamoDBStoreOptions), secret: "keyboard cat", cookie: {expires: 60000} }));
 const http = require('http').Server(app);
 const fs = require('fs');
 const path = require('path');
