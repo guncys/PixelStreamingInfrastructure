@@ -29,9 +29,7 @@ var cors = require('cors');
 const { DynamoDBClient } = require("@aws-sdk/client-dynamodb");
 
 var DynamoDBStoreOptions = {
-    client: new DynamoDBClient(),
-	reapInterval: 6000
-        
+    client: new DynamoDBClient()
 };
 
 const app = express();
